@@ -1,7 +1,9 @@
-﻿namespace HahaMedia.Domain.Common
+﻿using System;
+
+namespace HahaMedia.Domain.Common
 {
     public abstract class BaseEntity
     {
-        public long Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -22,6 +22,8 @@ namespace HahaMedia.Infrastructure.Persistence.Contexts
         }
         public DbSet<ApplicationUser> User { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Song> Songs { get; set; }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             var userId = Guid.Parse(authenticatedUser.UserId ?? "00000000-0000-0000-0000-000000000000");

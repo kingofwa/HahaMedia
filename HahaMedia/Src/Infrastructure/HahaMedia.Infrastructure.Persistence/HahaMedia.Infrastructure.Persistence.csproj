@@ -17,8 +17,4 @@
 		<ProjectReference Include="..\HahaMedia.Infrastructure.Identity\HahaMedia.Infrastructure.Identity.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Migrations\" />
-	</ItemGroup>
-
 </Project>
