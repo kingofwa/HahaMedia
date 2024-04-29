@@ -16,8 +16,5 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Core\HahaMedia.Application\HahaMedia.Application.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Migrations\" />
-	</ItemGroup>
 
 </Project>

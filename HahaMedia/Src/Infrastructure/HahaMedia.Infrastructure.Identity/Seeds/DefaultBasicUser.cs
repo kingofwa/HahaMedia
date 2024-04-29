@@ -2,6 +2,7 @@
 using HahaMedia.Infrastructure.Identity.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace HahaMedia.Infrastructure.Identity.Seeds
 {
@@ -14,7 +15,7 @@ namespace HahaMedia.Infrastructure.Identity.Seeds
             {
                 UserName = "Admin",
                 Email = "Admin@Admin.com",
-                Name = "Lepvc",
+                Name = "Le",
                 PhoneNumber = "0365896510",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true
@@ -25,11 +26,12 @@ namespace HahaMedia.Infrastructure.Identity.Seeds
                 var user = await userManager.FindByEmailAsync(defaultUser.Email);
                 if (user == null)
                 {
-                    await userManager.CreateAsync(defaultUser, "Lepvc");
+                    await userManager.CreateAsync(defaultUser, "Le@12345");
                     await userManager.AddToRoleAsync(defaultUser, "Admin");
                 }
 
             }
         }
+
     }
 }

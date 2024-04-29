@@ -9,6 +9,7 @@ using HahaMedia.Application.Features.Products.Queries.GetProductById;
 using HahaMedia.Application.Wrappers;
 using HahaMedia.Domain.Products.Dtos;
 using System.Threading.Tasks;
+using System;
 
 namespace HahaMedia.WebApi.Controllers.v1
 {
@@ -32,7 +33,7 @@ namespace HahaMedia.WebApi.Controllers.v1
             => await Mediator.Send(model);
 
         [HttpPost, Authorize]
-        public async Task<BaseResult<long>> CreateProduct(CreateProductCommand model)
+        public async Task<BaseResult<Guid>> CreateProduct(CreateProductCommand model)
             => await Mediator.Send(model);
 
         [HttpPut, Authorize]

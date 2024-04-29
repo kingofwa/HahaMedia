@@ -1,4 +1,5 @@
 ﻿using HahaMedia.Domain.Entities;
+using System;
 
 namespace HahaMedia.Domain.Products.Dtos
 {
@@ -17,7 +18,7 @@ namespace HahaMedia.Domain.Products.Dtos
             BarCode = product.BarCode;
             UserName = userName;
         }
-        public long Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public string BarCode { get; set; }
