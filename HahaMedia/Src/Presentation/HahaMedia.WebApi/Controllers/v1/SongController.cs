@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace HahaMedia.WebApi.Controllers.v1
 {
     [ApiVersion("1")]
-    [Authorize]
+    //[Authorize]
     public class SongController : BaseApiController
     {
         private readonly ILogger<SongController> _logger;
