@@ -1,5 +1,6 @@
 ﻿using HahaMedia.Application.Wrappers;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace HahaMedia.Application.Features.Songs.Commands.CreateSong
         public string Artist { get; set; }
         public int? Duration { get; set; } 
         public string Genre { get; set; }
+        public IFormFile Mp3File { get; set; }
     }
 }

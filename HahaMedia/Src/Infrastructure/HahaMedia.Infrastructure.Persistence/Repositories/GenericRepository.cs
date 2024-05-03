@@ -5,6 +5,7 @@ using HahaMedia.Infrastructure.Persistence.Contexts;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace HahaMedia.Infrastructure.Persistence.Repositories
 {
@@ -55,6 +56,11 @@ namespace HahaMedia.Infrastructure.Persistence.Repositories
                 .ToListAsync();
 
             return new(pagedResult, count);
+        }
+
+        public async Task<T> GetByIdAsync(Guid id)
+        {
+            return await _dbContext.Set<T>().FindAsync(id);
         }
     }
 }
