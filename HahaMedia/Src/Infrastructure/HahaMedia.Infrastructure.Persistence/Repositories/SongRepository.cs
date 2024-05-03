@@ -33,7 +33,15 @@ namespace HahaMedia.Infrastructure.Persistence.Repositories
                 query = query.Where(p => p.Title.Contains(name));
             }
 
-            var joinedQuery = query.Join(users, s => s.CreatedBy, user => user.Id, (s, user) => new SongDto(s, user.UserName));
+            var joinedQuery = query.GroupJoin(
+                users,
+                s => s.CreatedBy,
+                user => user.Id,
+                (s, userList) => new { Song = s, Users = userList }
+            ).SelectMany(
+                x => x.Users.DefaultIfEmpty(),
+                (song, user) => new SongDto(song.Song, user != null ? "Abc" : "")
+            );
 
             return await Paged(
                 joinedQuery,

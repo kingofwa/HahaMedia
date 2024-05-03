@@ -14,12 +14,16 @@ namespace HahaMedia.Domain.Dtos
         {
             Id = song.Id;
             Title = song.Title;
+            Artist = song.Artist;
             Genre = song.Genre;
             UserName = userName;
+            Mp3Data = song.Mp3Data;
         }
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
+        public string Artist { get; set; }
         public string UserName { get; set; }
+        public byte[] Mp3Data { get; set; }
     }
 }

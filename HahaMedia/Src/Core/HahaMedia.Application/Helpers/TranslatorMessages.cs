@@ -1,4 +1,5 @@
 ﻿using HahaMedia.Application.Dtos;
+using System;
 
 namespace HahaMedia.Application.Helpers
 {
@@ -14,6 +15,12 @@ namespace HahaMedia.Application.Helpers
         {
             public static TranslatorMessageDto Product_notfound_with_id(long id)
                 => new(nameof(Product_notfound_with_id), [id.ToString()]);
+        }
+
+        public static class SongMessages
+        {
+            public static TranslatorMessageDto Song_notfound_with_id(Guid id)
+                => new(nameof(Song_notfound_with_id), [id.ToString()]);
         }
     }
 }

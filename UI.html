@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Playlist</title>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    #songList {
+        max-width: 1000px;
+        /* Chiều rộng tối đa là 1000px */
+        margin: 0 auto;
+        /* Canh giữa màn hình */
+    }
+
+    /* Style cho mỗi bài hát trong danh sách */
+    .song {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        cursor: pointer;
+        /* Biến con trỏ thành dấu nhấp chuột */
+        position: relative;
+        /* Cần thiết để định vị icon */
+    }
+
+    /* Hiển thị icon bàn tay khi di chuột vào */
+    .song:hover {
+        background-color: #e0e0e0;
+    }
+
+    /* Style của icon bàn tay */
+    .song:hover::after {
+        content: "";
+        /* Không có nội dung, nhưng cần thiết để icon hiển thị */
+        background-image: url('path-to-your-hand-icon.png');
+        /* Đường dẫn đến biểu tượng bàn tay */
+        width: 20px;
+        /* Độ rộng của biểu tượng */
+        height: 20px;
+        /* Chiều cao của biểu tượng */
+        position: absolute;
+        /* Vị trí tuyệt đối */
+        top: 50%;
+        /* Đặt vị trí dọc giữa */
+        left: 50%;
+        /* Đặt vị trí ngang giữa */
+        transform: translate(-50%, -50%);
+        /* Dịch chuyển biểu tượng để căn giữa */
+        z-index: 1;
+        /* Đảm bảo biểu tượng hiển thị phía trên bài hát */
+        pointer-events: none;
+        /* Không ảnh hưởng đến sự kiện click vào bài hát */
+    }
+</style>
+
+<body>
+    <h1>Music Playlist</h1>
+    <div id="songList"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchSongList();
+        });
+
+        function fetchSongList() {
+            // Gửi yêu cầu GET đến API để lấy danh sách các bài hát
+            fetch("https://localhost:5001/api/v1/Song/GetPagedListSong")
+                .then(response => response.json())
+                .then(data => {
+                    displaySongList(data);
+                })
+                .catch(error => console.error("Error fetching song list:", error));
+        }
+
+        function displaySongList(songs) {
+            const songList = document.getElementById("songList");
+
+            // Xóa các phần tử hiện có trong danh sách
+            songList.innerHTML = "";
+
+            // Hiển thị từng bài hát trong danh sách
+            songs.data.forEach(song => {
+                const songDiv = document.createElement("div");
+                songDiv.classList.add("song");
+                songDiv.textContent = `${song.title} - ${song.artist}`;
+
+                // Thêm sự kiện click để phát nhạc khi người dùng click vào mỗi bài hát
+                songDiv.addEventListener("click", () => playMusic(song.id));
+
+                songList.appendChild(songDiv);
+            });
+        }
+
+        let currentSong = null;
+        function playMusic(idSong) {
+            // Kiểm tra xem có bài hát nào đang được phát không
+            if (currentSong !== null) {
+                stopMusic()
+            }
+            currentSong = idSong;
+            // Gửi yêu cầu GET để lấy thông tin của bài hát dựa trên id
+            fetch(`https://localhost:5001/api/v1/Song/GetSongById?Id=${idSong}`)
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Music is playing.");
+                    } else {
+                        console.error("Failed to play music.");
+                    }
+                })
+                .catch(error => console.error("Error playing music:", error));
+        }
+
+        function stopMusic() {
+            // Nếu có, dừng phát bài hát đó
+            fetch("https://localhost:5001/api/v1/Song/StopSong", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id: currentSong })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Music stopped.");
+                    } else {
+                        console.error("Failed to stop music.");
+                    }
+                })
+                .catch(error => console.error("Error stopping music:", error));
+        }
+
+
+    </script>
+</body>
+
+</html>
